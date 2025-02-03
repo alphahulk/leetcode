@@ -1,0 +1,26 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head):
+        def iterative(head):
+            pre,cur = None, head
+            while cur:
+                nxt = cur.next
+                cur.next = pre
+                pre = cur
+                cur = nxt
+            return pre
+"""head.next.next = head   # C.next = B (C now holds B's tail)
+head.next = None        # B.next = 🚫 (B lets go of C's tail)"""
+        def recursively(head):
+            if not head or not head.next:
+                return head
+            node = recursively(head.next)
+            head.next.next = head
+            head.next = None
+            return node
+        
+        return iterative(head)
