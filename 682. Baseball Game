@@ -1,0 +1,22 @@
+class Solution(object):
+    def calPoints(self, operations):
+        """
+        :type operations: List[str]
+        :rtype: int
+        """
+        validScores = []
+        
+        for i in operations:
+            if i.lstrip('-').isdigit():  # Handle negative numbers correctly
+                validScores.append(int(i))
+            elif i == 'C':  # Cancel the last valid score
+                if validScores:
+                    validScores.pop()
+            elif i == 'D':  # Double the last valid score
+                if validScores:
+                    validScores.append(validScores[-1] * 2)
+            elif i == '+':  # Sum the last two valid scores
+                if len(validScores) >= 2:
+                    validScores.append(validScores[-1] + validScores[-2])
+        
+        return sum(validScores)
