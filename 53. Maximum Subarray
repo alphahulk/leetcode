@@ -9,3 +9,15 @@ class Solution:
             sum1 += nums[i]
             max1 = max(max1, sum1)
         return max1
+
+
+
+        maxSub = nums[0]
+        curSum = 0
+        for i in nums:
+            if curSum < 0:
+                curSum = 0
+            curSum += i
+            maxSub = max(curSum, maxSub)
+        return maxSub
+        
