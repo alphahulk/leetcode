@@ -1,0 +1,59 @@
+class Solution(object):
+    def maxSubarraySumCircular(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        # Step 1: Initialize variables
+        min_sum = max_sum = c_min = c_max = nums[0]
+        
+        # Step 2: Iterate through the array (start from the second element)
+        for num in nums[1:]:
+            # Calculate current min and global min
+            c_min = min(c_min + num, num)  # Extend the subarray or start new
+            min_sum = min(c_min, min_sum)  # Update global minimum
+            
+            # Calculate current max and global max
+            c_max = max(c_max + num, num)  # Extend the subarray or start new
+            max_sum = max(max_sum, c_max)  # Update global maximum
+        
+        # Step 3: Calculate the result
+        # If min_sum equals total sum, all elements are negative
+        # Otherwise, take the maximum of the no-wrap max and wrap max
+        return max(max_sum, sum(nums) - min_sum) if min_sum != sum(nums) else max_sum
+
+
+        
+
+
+#         Step 1: Initialization
+# python
+# Copy
+# Edit
+# min_sum = max_sum = c_min = c_max = nums[0] = 1
+# Step 2: Iterate through the array
+# Index 1: num = -2
+
+# c_min = min(1 + (-2), -2) = -2
+# min_sum = min(-2, 1) = -2
+# c_max = max(1 + (-2), -2) = -1
+# max_sum = max(1, -1) = 1
+# Index 2: num = 3
+
+# c_min = min(-2 + 3, 3) = 1
+# min_sum = min(-2, 1) = -2
+# c_max = max(-1 + 3, 3) = 3
+# max_sum = max(1, 3) = 3
+# Index 3: num = -2
+
+# c_min = min(1 + (-2), -2) = -2
+# min_sum = min(-2, -2) = -2
+# c_max = max(3 + (-2), -2) = 1
+# max_sum = max(3, 1) = 3
+# Step 3: Calculate Result
+# total_sum = sum(nums) = 1 + (-2) + 3 + (-2) = 0
+# max_sum = 3
+# min_sum = -2
+# sum(nums) - min_sum = 0 - (-2) = 2
+# Step 4: Return Result
+# max(max_sum, sum(nums) - min_sum) = max(3, 2) = 3
