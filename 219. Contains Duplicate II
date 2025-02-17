@@ -1,0 +1,36 @@
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        # hset={}
+        # for idx in range(len(nums)):
+        #     if nums[idx] in hset and abs(idx - hset[nums[idx]]) <= k:
+        #         return True
+        #     hset[nums[idx]] = idx
+        # return False
+
+
+
+
+
+
+
+
+
+        window = set()
+        l = 0
+        for r in range(len(nums)):
+            # If the number is already in the window, a duplicate within range k is found
+            if nums[r] in window:
+                return True
+            # Add the current number to the window
+            window.add(nums[r])
+            # If window size exceeds k, remove the leftmost element
+            if r - l >= k:
+                window.remove(nums[l])
+                l += 1
+        # No duplicates found within the given distance
+        return False
